@@ -1,20 +1,17 @@
-FROM phusion/baseimage:0.9.12
-MAINTAINER kylase@outlook.com
+FROM ubuntu:23.04
 
-ENV HOME /root
+RUN mkdir -p /workspace
+WORKDIR /workspace
 
-RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cpanminus \
+    libgd-dev \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
 
-CMD ["/sbin/my_init"]
+RUN cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
 
-RUN apt-get update
-RUN ln -s /usr/bin/env /bin/env
+RUN wget -qc http://circos.ca/distribution/circos-current.tgz -O - | tar -xz -C /workspace
 
-RUN apt-get -y -q install build-essential libgd2-xpm-dev wget
-
-RUN cpan install Clone Config::General Font::TTF List::MoreUtils Math::Bezier Math::VecStat Math::Round Params::Validate Readonly Regexp::Common Set::IntSpan Text::Format GD
-
-RUN wget http://circos.ca/distribution/circos-0.66.tgz
-RUN tar xfz circos-0.66.tgz
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV PATH="${PATH}:/workspace/circos-0.69-9/bin"
