@@ -1,5 +1,7 @@
 FROM ubuntu:23.04
 
+ENV VERSION=0.69-9
+
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
@@ -10,8 +12,21 @@ RUN apt-get update && apt-get install -y \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-RUN cpanm Clone Config::General Font::TTF::Font GD GD::Polyline Math::Bezier Math::Round Math::VecStat Params::Validate Readonly Regexp::Common SVG Set::IntSpan Statistics::Basic Text::Format
+RUN cpanm Clone \ 
+    Config::General \
+    Font::TTF::Font \ 
+    GD \
+    GD::Polyline \
+    Math::Bezier \
+    Math::Round \
+    Math::VecStat \
+    Params::Validate \
+    Readonly \
+    Regexp::Common \
+    SVG \
+    Set::IntSpan \
+    Statistics::Basic \
+    Text::Format
 
-RUN wget -qc http://circos.ca/distribution/circos-current.tgz -O - | tar -xz -C /workspace
-
-ENV PATH="${PATH}:/workspace/circos-0.69-9/bin"
+RUN wget -qc http://circos.ca/distribution/circos-${VERSION}.tgz -O - | tar -xz -C /usr/lib
+RUN ln -s /usr/lib/circos-${VERSION}/bin/circos /usr/local/bin/circos
