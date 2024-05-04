@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:23.04
 
 ENV VERSION=0.69-9
 
@@ -28,5 +28,5 @@ RUN cpanm Clone \
     Statistics::Basic \
     Text::Format
 
-RUN wget -qc http://circos.ca/distribution/circos-${VERSION}.tgz -O - | tar -xz -C /usr/lib
+RUN wget https://circos.ca/distribution/circos-${VERSION}.tgz -O - | tar -xz -C /usr/lib
 RUN ln -s /usr/lib/circos-${VERSION}/bin/circos /usr/local/bin/circos
