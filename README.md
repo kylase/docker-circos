@@ -2,7 +2,7 @@
 
 TODO: Migrate to [CircosAPI](https://github.com/kylase/CircosAPI)
 
-# Usage
+## Usage
 
 Run an interactive session with the current working directory (assuming the working directory is your Circos project directory) mounted as `/workspace`
 
