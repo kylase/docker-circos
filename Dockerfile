@@ -28,5 +28,5 @@ RUN cpanm Clone \
     Statistics::Basic \
     Text::Format
 
-RUN wget https://circos.ca/distribution/circos-${VERSION}.tgz -O - | tar -xz -C /usr/lib
+RUN wget --no-check-certificate https://circos.ca/distribution/circos-${VERSION}.tgz -O - | tar -xz -C /usr/lib
 RUN ln -s /usr/lib/circos-${VERSION}/bin/circos /usr/local/bin/circos
